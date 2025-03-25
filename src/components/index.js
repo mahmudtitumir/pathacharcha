@@ -7,15 +7,23 @@ import Button from './Button';
 import Input from './Input';
 import PostCard from './PostCard';
 import Select from './Select';
+import Protected from './AuthLayout';
+import RTE from './RTE';
+import Signup from './Signup';
+import Login from './Login';
 
 export {
     Header,
-    Footer,
-    Container,
-    Logout,
     Logo,
+    Container,
+    Footer,
+    PostCard,
+    Signup,
+    Login,
+    Logout,
     Button,
     Input,
-    PostCard,
     Select,
+    Protected,
+    RTE,
 };
