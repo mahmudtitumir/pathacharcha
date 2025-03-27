@@ -15,7 +15,11 @@ const Protected = ({ children, authentication = true }) => {
         setLoader(false);
     }, [authStatus, authentication, navigate]);
 
-    return loader ? <h2>Loading ...</h2> : { children };
+    return loader ? (
+        <h2 className="text-center text-2xl font-bold mt-4">Loading ...</h2>
+    ) : (
+        children
+    );
 };
 
 export default Protected;

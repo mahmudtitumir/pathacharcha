@@ -22,7 +22,8 @@ class DatabaseService {
                 { userId, title, content, featuredIMG, status }
             );
         } catch (error) {
-            console.log(error);
+            console.log('DatabaseService :: createPost :: error', error);
+            throw error;
         }
     }
 
@@ -40,7 +41,8 @@ class DatabaseService {
                 }
             );
         } catch (error) {
-            console.log(error);
+            console.error('DatabaseService :: updatePost :: error', error);
+            throw error;
         }
     }
 
@@ -53,7 +55,7 @@ class DatabaseService {
             );
             return true;
         } catch (error) {
-            console.log(error);
+            console.error('DatabaseService :: deletePost :: error', error);
             return false;
         }
     }
@@ -66,12 +68,12 @@ class DatabaseService {
                 slug
             );
         } catch (error) {
-            console.log(error);
-            return false;
+            console.error('DatabaseService :: getPost :: error', error);
+            return null;
         }
     }
 
-    async getPosts(queries = [Query.equal('status', 'true')]) {
+    async getPosts(queries = [Query.equal('status', 'Active')]) {
         try {
             return this.databases.listDocuments(
                 config.appwriteDBId,
@@ -79,7 +81,7 @@ class DatabaseService {
                 queries
             );
         } catch (error) {
-            console.log(error);
+            console.error('DatabaseService :: getPosts :: error', error);
             return false;
         }
     }

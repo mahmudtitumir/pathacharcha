@@ -9,13 +9,13 @@ function Button({
     ...props
 }) {
     return (
-        <div
+        <button
             type={type}
             className={`px-4 py-2 rounded-lg ${bgColor} ${color} ${className}`}
             {...props}
         >
             {children}
-        </div>
+        </button>
     );
 }
 

@@ -75,7 +75,10 @@ const Login = () => {
                                 required: true,
                             })}
                         />
-                        <Button type="submit" className="w-full">
+                        <Button
+                            type="submit"
+                            className="w-full cursor-pointer hover:bg-blue-700 active:bg-blue-800 active:border-2 active:border-green-900"
+                        >
                             Sign in
                         </Button>
                     </div>

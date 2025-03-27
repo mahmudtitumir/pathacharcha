@@ -10,7 +10,7 @@ class StorageService {
         this.client
             .setEndpoint(config.appwriteEndpoint)
             .setProject(config.appwriteProjectId);
-        this.storages = new Storage();
+        this.storages = new Storage(this.client);
     }
 
     async uploadFile(file) {

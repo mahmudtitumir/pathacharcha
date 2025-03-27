@@ -12,13 +12,17 @@ const Signup = () => {
     const dispatch = useDispatch();
     const { register, handleSubmit } = useForm();
     const [error, setError] = useState('');
-    const signup = async data => {
+    const create = async data => {
         setError('');
         try {
-            const session = await authService.login(data);
-            if (session) {
-                const userData = await authService.getCurrentUser();
-                if (userData) dispatch(authLogin(userData));
+            await authService.createAccount(data);
+            await authService.login({
+                email: data.email,
+                password: data.password,
+            });
+            const userData = await authService.getCurrentUser();
+            if (userData) {
+                dispatch(authLogin({ userData }));
                 navigate('/');
             }
         } catch (error) {
@@ -51,7 +55,7 @@ const Signup = () => {
                     <p className="text-red-600 mt-8 text-center">{error}</p>
                 )}
 
-                <form onSubmit={handleSubmit(signup)}>
+                <form onSubmit={handleSubmit(create)}>
                     <div className="space-y-5">
                         <Input
                             label="Full Name: "
@@ -83,7 +87,10 @@ const Signup = () => {
                                 required: true,
                             })}
                         />
-                        <Button type="submit" className="w-full">
+                        <Button
+                            type="submit"
+                            className="w-full cursor-pointer hover:bg-blue-700 active:bg-blue-800 active:border-2 active:border-green-900"
+                        >
                             Create Account
                         </Button>
                     </div>

@@ -19,19 +19,25 @@ function App() {
                     dispatch(logout());
                 }
             })
-            .finally(() => setLoading(false));
-    }, []);
-    if (loading) return <div>Loading....</div>;
+            .catch(error => {
+                console.error('Failed to get current user:', error);
 
-    return (
-        <div className="min-h-screen bg-stone-500 text-white text-2xl text-center flex flex-wrap">
+                dispatch(logout());
+            })
+            .finally(() => setLoading(false));
+    }, [dispatch]);
+
+    return !loading ? (
+        <div className="min-h-screen flex flex-wrap content-between bg-gray-400">
             <div className="w-full block">
                 <Header />
-                <main>{/* <Outlet /> */}</main>
+                <main>
+                    <Outlet />
+                </main>
                 <Footer />
             </div>
         </div>
-    );
+    ) : null;
 }
 
 export default App;

@@ -1,7 +1,7 @@
 import { Account, Client, ID } from 'appwrite';
 
 import config from '../config/config';
-
+console.log(config);
 export class AuthService {
     client = new Client();
     account;
@@ -9,7 +9,7 @@ export class AuthService {
         this.client
             .setEndpoint(config.appwriteEndpoint)
             .setProject(config.appwriteProjectId);
-        this.account = new Account();
+        this.account = new Account(this.client);
     }
 
     async createAccount({ email, password, name }) {
@@ -21,32 +21,27 @@ export class AuthService {
                 name
             );
             if (user) {
-                this.login(email, password);
+                this.login({ email, password });
             } else {
                 return user;
             }
         } catch (error) {
-            console.log(error);
-            throw error;
+            console.log('AuthService :: createAccount :: error', error);
         }
     }
     async login({ email, password }) {
         try {
-            return await this.account.createEmailPasswordSession(
-                email,
-                password
-            );
+            await this.account.createEmailPasswordSession(email, password);
+            return await this.getCurrentUser();
         } catch (error) {
-            console.log(error);
-            throw error;
+            console.log('AuthService :: login :: error', error);
         }
     }
     async logout() {
         try {
             await this.account.deleteSession('current');
         } catch (error) {
-            console.log(error);
-            throw error;
+            console.log('AuthService :: logout :: error', error);
         }
     }
 
@@ -54,10 +49,9 @@ export class AuthService {
         try {
             return await this.account.get();
         } catch (error) {
-            console.log(error);
-            throw error;
+            console.log('AuthService :: getCurrentUser :: error', error);
+            return null;
         }
-        return null;
     }
 }
 

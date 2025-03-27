@@ -6,6 +6,7 @@ import Logo from './Logo';
 import Button from './Button';
 import Input from './Input';
 import PostCard from './PostCard';
+import PostForm from './post-form/PostForm';
 import Select from './Select';
 import Protected from './AuthLayout';
 import RTE from './RTE';
@@ -18,6 +19,7 @@ export {
     Container,
     Footer,
     PostCard,
+    PostForm,
     Signup,
     Login,
     Logout,
